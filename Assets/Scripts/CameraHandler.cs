@@ -7,18 +7,27 @@ public class CameraHandler : MonoBehaviour {
 
 	void Start () {
 		Camera.main.orthographicSize = 5;
+		StartCoroutine (moveCamera ());
 	}
 
-	void moveCameraToPos(Vector2 toPos, float zoom, float zoomPercent, float percent) {
-		Vector2 currentPos = Camera.main.transform.localPosition;
-		float currentZoom = Camera.main.orthographicSize;
-		Vector2 destinationPos = toPos - currentPos;
-		float destinationZoom = (zoom - currentZoom);
+	IEnumerator moveCameraToPos(Vector3 toPos, float zoom, float zoomPercent, float percent) {
+		cameraIsMoving = true;
+		while (cameraIsMoving) {
+			Vector3 currentPos = Camera.main.transform.localPosition;
+			float currentZoom = Camera.main.orthographicSize;
+			Vector3 destinationPos = toPos - currentPos;
+			float destinationZoom = (zoom - currentZoom);
 			
-		destinationPos = Vector2.Scale (destinationPos, new Vector2 (1, 1));
+			destinationPos = Vector2.Scale (destinationPos, new Vector2 (1, 1));
 			
-		Camera.main.transform.localPosition += (percent * destinationPos);
-		Camera.main.orthographicSize += (zoomPercent * destinationZoom);
+			Camera.main.transform.localPosition += (percent * destinationPos);
+			Camera.main.orthographicSize += (zoomPercent * destinationZoom);
+
+			if (Camera.main.transform.localPosition.x <= (toPos.x + .1f) && Camera.main.transform.localPosition.x >= (toPos.x - .1f) && Camera.main.transform.localPosition.y <= (toPos.y + .1f) && Camera.main.transform.localPosition.y <= (toPos.y - .1f)) {
+				cameraIsMoving = false;
+			}
+			yield return null;
+		}
 	}
 
 	// Update is called once per frame
@@ -26,18 +35,19 @@ public class CameraHandler : MonoBehaviour {
 		//moveCamera ();
 	}
 
-	void moveCamera() {
+	IEnumerator moveCamera() {
 		GameObject target = (GameObject) CharacterHandler.enemies[0];
-		moveCameraToPos (target.transform.localPosition, 4, .1f, .05f);
-		wait (400);
+		StartCoroutine (moveCameraToPos (target.transform.localPosition, 4, .1f, .05f));
+		yield return new WaitForSeconds (2.0f);
 		target = (GameObject) CharacterHandler.enemies[1];
-		moveCameraToPos (target.transform.localPosition, 4, .1f, .05f);
-		wait (400);
+		StartCoroutine (moveCameraToPos (target.transform.localPosition, 4, .1f, .05f));
+		yield return new WaitForSeconds (2.0f);
 		target = (GameObject) CharacterHandler.enemies[2];
-		moveCameraToPos (target.transform.localPosition, 4, .1f, .05f);
-		wait (400);
+		StartCoroutine (moveCameraToPos (target.transform.localPosition, 4, .1f, .05f));
+		yield return new WaitForSeconds (2.0f);
 		target = (GameObject) CharacterHandler.enemies[3];
-		moveCameraToPos (target.transform.localPosition, 4, .1f, .05f);
+		StartCoroutine (moveCameraToPos (target.transform.localPosition, 4, .1f, .05f));
+		yield return new WaitForSeconds (2.0f);
 	}
 
 	void wait(float time) {
