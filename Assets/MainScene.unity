@@ -140,7 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ee60b2d0f0c8649a76f765d102ceaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEnemy: 0
+  targetX: 0
+  cameraX: 0
   cameraIsMoving: 0
 --- !u!4 &926414473
 Transform:
