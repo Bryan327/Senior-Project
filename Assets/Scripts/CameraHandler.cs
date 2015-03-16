@@ -40,6 +40,59 @@ public class CameraHandler : MonoBehaviour {
 		checkInput ();
 	}
 
+	public void moveLocation1() {
+		if (!cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location1Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+	}
+
+	public void moveLocation2() {
+		if (!cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location2Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+
+	}
+
+	public void moveLocation3() {
+		if (!cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location3Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+
+	}
+
+	public void moveLocation4() {
+		if (!cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location4Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+
+	}
+
+	public void moveLocation5() {
+		if (!cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location5Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+
+	}
+
+	public void moveKeep () {
+		if (!cameraIsMoving) {
+			Vector3 target = GameObject.Find ("KeepObject").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 12, 0.1f, 0.1f));
+		}
+
+	}
+
 	public void checkInput() {
 		if (Input.GetKeyDown(KeyCode.Alpha1) && !cameraIsMoving) {
 			Vector3 target = GameObject.Find ("Location1Object").transform.localPosition;
