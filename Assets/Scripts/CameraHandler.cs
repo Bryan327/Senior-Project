@@ -7,11 +7,11 @@ public class CameraHandler : MonoBehaviour {
 	public bool cameraIsMoving;
 
 	void Start () {
-		Camera.main.orthographicSize = 5;
+		//Camera.main.orthographicSize = 5;
 		//StartCoroutine (moveCamera ());
 	}
 
-	IEnumerator moveCameraToPos(Vector3 toPos, float zoom, float zoomPercent, float percent) {
+	public IEnumerator moveCameraToPos(Vector3 toPos, float zoom, float zoomPercent, float percent) {
 		cameraIsMoving = true;
 		while (cameraIsMoving) {
 			Vector3 currentPos = Camera.main.transform.localPosition;
@@ -37,39 +37,39 @@ public class CameraHandler : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//moveCamera ();
+		checkInput ();
 	}
 
-	IEnumerator moveCamera() {
-		GameObject target = (GameObject) CharacterHandler.enemies[0];
-		targetX = target.transform.localPosition.x;
-		StartCoroutine (moveCameraToPos (target.transform.localPosition, 4, .1f, .05f));
-		yield return new WaitForSeconds (5.0f);
-		target = (GameObject) CharacterHandler.enemies[1];
-		targetX = target.transform.localPosition.x;
-		StartCoroutine (moveCameraToPos (target.transform.localPosition, 4, .1f, .05f));
-		yield return new WaitForSeconds (5.0f);
-		target = (GameObject) CharacterHandler.enemies[2];
-		targetX = target.transform.localPosition.x;
-		StartCoroutine (moveCameraToPos (target.transform.localPosition, 4, .1f, .05f));
-		yield return new WaitForSeconds (5.0f);
-		target = (GameObject) CharacterHandler.enemies[3];
-		targetX = target.transform.localPosition.x;
-		StartCoroutine (moveCameraToPos (target.transform.localPosition, 4, .1f, .05f));
-		yield return new WaitForSeconds (5.0f);
-	}
-
-	void wait(float time) {
-		bool canAdvance = false;
-		float timeElapsed = 0;
-		while (!canAdvance) {
-			if (timeElapsed >= time) {
-				canAdvance = true;
-			}
-			else {
-				timeElapsed += Time.deltaTime;
-			}
+	public void checkInput() {
+		if (Input.GetKeyDown(KeyCode.Alpha1) && !cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location1Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha2) && !cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location2Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha3) && !cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location3Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha4) && !cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location4Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha5) && !cameraIsMoving) {
+			Vector3 target = GameObject.Find ("Location5Object").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+		}
+		if (Input.GetKeyDown(KeyCode.Alpha6) && !cameraIsMoving) {
+			Vector3 target = GameObject.Find ("KeepObject").transform.localPosition;
+			target = Vector3.Scale(target, new Vector3(1, 1, 0));
+			StartCoroutine (moveCameraToPos (target, 12, 0.1f, 0.1f));
 		}
 	}
-
 }
