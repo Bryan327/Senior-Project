@@ -44,7 +44,7 @@ public class CameraHandler : MonoBehaviour {
 		if (!cameraIsMoving) {
 			Vector3 target = GameObject.Find ("Location1Object").transform.localPosition;
 			target = Vector3.Scale(target, new Vector3(1, 1, 0));
-			StartCoroutine (moveCameraToPos (target, 8, 0.1f, 0.1f));
+			StartCoroutine (moveCameraToPos (target, 8, 0.05f, 0.1f));
 		}
 	}
 

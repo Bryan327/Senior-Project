@@ -162,8 +162,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1769447845}
-        m_MethodName: moveLocation5
+      - m_Target: {fileID: 1769447847}
+        m_MethodName: moveToLocation5
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -483,8 +483,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1769447845}
-        m_MethodName: moveKeep
+      - m_Target: {fileID: 1769447847}
+        m_MethodName: moveToKeep
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -816,8 +816,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1769447845}
-        m_MethodName: moveLocation1
+      - m_Target: {fileID: 1769447847}
+        m_MethodName: moveToLocation1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1150,6 +1150,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1769447846}
   - 114: {fileID: 1769447845}
+  - 114: {fileID: 1769447847}
   m_Layer: 0
   m_Name: ScriptHolder
   m_TagString: Untagged
@@ -1183,6 +1184,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
+--- !u!114 &1769447847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1769447844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13fd0668a2ac6c0498d9ffd544fcaaba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1811473475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1324,8 +1336,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1769447845}
-        m_MethodName: moveLocation4
+      - m_Target: {fileID: 1769447847}
+        m_MethodName: moveToLocation4
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1440,8 +1452,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1769447845}
-        m_MethodName: moveLocation2
+      - m_Target: {fileID: 1769447847}
+        m_MethodName: moveToLocation2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1790,8 +1802,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1769447845}
-        m_MethodName: moveLocation3
+      - m_Target: {fileID: 1769447847}
+        m_MethodName: moveToLocation3
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

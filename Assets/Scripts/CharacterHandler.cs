@@ -73,9 +73,7 @@ public class CharacterHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameHandler.gameState == GameHandler.CARD_SELECT) {
-			doCardAnim ();
-		}
+	
 	}
 
 	void doCardAnim() {
