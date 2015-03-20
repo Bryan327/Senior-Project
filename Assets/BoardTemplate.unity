@@ -141,7 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13fd0668a2ac6c0498d9ffd544fcaaba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p: {fileID: 0}
   locationPrefabs:
   - {fileID: 102542, guid: c86c06a1f4c577048b3d3ab721f512f2, type: 2}
   - {fileID: 190954, guid: ab6caadbbde13b141b8cb0dcef9b1878, type: 2}

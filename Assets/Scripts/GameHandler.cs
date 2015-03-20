@@ -71,11 +71,30 @@ public class GameHandler : MonoBehaviour {
 			foreach (var l in loc) {
 				if (hit != null & hit.collider != null) {
 					if (hit.collider.gameObject == l) {
-						p.g.transform.localPosition = l.transform.localPosition;
+						//p.g.transform.localPosition = l.transform.localPosition;
+							yield return StartCoroutine (movePlayer (l.transform.localPosition, .05f));
 					}
 				}
 			}
 		}
 		yield return null;
+	}
+	IEnumerator movePlayer(Vector3 toPos, float percent) {
+		p.destinationReached = false;
+		while (!p.destinationReached) {
+			Vector3 dest = toPos - p.g.transform.localPosition;
+			
+			dest = Vector3.Scale (dest, new Vector3 (1, 1, 0));
+
+			p.g.transform.localPosition += (percent * dest);
+
+			if (p.g.transform.localPosition.x <= (toPos.x + .05f) && p.g.transform.localPosition.x >= (toPos.x - .05f) && p.g.transform.localPosition.y <= (toPos.y + .05f) && p.g.transform.localPosition.y >= (toPos.y - .05f)) {
+				p.g.transform.localPosition.Set(toPos.x, toPos.y, -10f);
+				p.destinationReached = true;
+			}
+			yield return null;
+		}
+
+
 	}
 }

@@ -7,6 +7,7 @@ public class Player {
 	public GameObject g;
 	public CircleCollider2D col;
 	public SpriteRenderer rend;
+	public bool destinationReached;
 
 	public Player() {
 		g = new GameObject ("Player");
@@ -15,6 +16,8 @@ public class Player {
 
 		g.GetComponent<SpriteRenderer>().sprite = Resources.Load ("Player1Sprite", typeof(Sprite)) as Sprite;
 		g.GetComponent<CircleCollider2D> ().radius = g.GetComponent<SpriteRenderer> ().bounds.size.x / 2;
+
+		destinationReached = true;
 
 		//String parameter for new GameObject should be a GUID
 	}
