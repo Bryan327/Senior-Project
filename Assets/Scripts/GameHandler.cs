@@ -1,53 +1,64 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameHandler : MonoBehaviour {
 	public static bool canInteract = true;
 	public static int numberOfPlayers;
 	public static int currentPlayer;
-	public Player p;
+	public Player[] players;
 	public GameObject[] locationPrefabs;
+	public Canvas gui;
 	public Location[] locations;
 
 	// Use this for initialization
 	void Start () {
 		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
-		numberOfPlayers = 1;
+		numberOfPlayers = 4;
+		currentPlayer = 0;
 		canInteract = true;
 		locations = new Location[6];
+		players = new Player[4];
 
-		GameObject instance = Instantiate (locationPrefabs[0], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-		locations [0] = new Location(instance);
-		instance = Instantiate (locationPrefabs[1], new Vector3(-10, 3, 0), Quaternion.identity) as GameObject;
-		locations [1] = new Location(instance);
-		instance = Instantiate (locationPrefabs[2], new Vector3(0, 8, 0), Quaternion.identity) as GameObject;
-		locations [2] = new Location(instance);
-		instance = Instantiate (locationPrefabs[3], new Vector3(10, 3, 0), Quaternion.identity) as GameObject;
-		locations [3] = new Location(instance);
-		instance = Instantiate (locationPrefabs[4], new Vector3(-5, -8, 0), Quaternion.identity) as GameObject;
-		locations [4] = new Location(instance);
-		instance = Instantiate (locationPrefabs[5], new Vector3(5, -8, 0), Quaternion.identity) as GameObject;
-		locations [5] = new Location(instance);
+		//gui.transform.GetChild("Text").GetComponent<Text> ().text = "Current Turn: " + currentPlayer;
 
-		p = new Player (locations[0].loc);
+		GameObject instance = Instantiate (locationPrefabs [0], new Vector3 (0, 0, 0), Quaternion.identity) as GameObject;
+		locations [0] = new Location (instance);
+		instance = Instantiate (locationPrefabs [1], new Vector3 (-10, 3, 0), Quaternion.identity) as GameObject;
+		locations [1] = new Location (instance);
+		instance = Instantiate (locationPrefabs [2], new Vector3 (0, 8, 0), Quaternion.identity) as GameObject;
+		locations [2] = new Location (instance);
+		instance = Instantiate (locationPrefabs [3], new Vector3 (10, 3, 0), Quaternion.identity) as GameObject;
+		locations [3] = new Location (instance);
+		instance = Instantiate (locationPrefabs [4], new Vector3 (-5, -8, 0), Quaternion.identity) as GameObject;
+		locations [4] = new Location (instance);
+		instance = Instantiate (locationPrefabs [5], new Vector3 (5, -8, 0), Quaternion.identity) as GameObject;
+		locations [5] = new Location (instance);
+
+		players [0] = new Player (locations [0].loc, locations [0], 1);
+		players [1] = new Player (locations [0].loc, locations [0], 2);
+		players [2] = new Player (locations [0].loc, locations [0], 3);
+		players [3] = new Player (locations [0].loc, locations [0], 4);
+
+
 	}
-
 	// Update is called once per frame
 	void Update () {
 		StartCoroutine(checkForMoveInput ());
+		gui.transform.FindChild ("Text").GetComponent<Text> ().text = "Current Turn: " + (currentPlayer+1);
 	}
 
 	IEnumerator checkForMoveInput() {
 		if (Input.GetMouseButtonDown (0)) {
-			Debug.Log ("Mouse is down");
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast (ray.origin, ray.direction);
 			for (int i = 0; i < 6; i++) {
 				if (hit != null & hit.collider != null) {
-					Debug.Log ("hit: " + hit.collider.gameObject + ", loc: " + locations[i].loc);
-					if (hit.collider.gameObject == locations[i].loc && canInteract) {
+					if (hit.collider.gameObject == locations[i].loc && canInteract && players[currentPlayer].currentLocation != locations[i]) {
 						canInteract = false;
+						players[currentPlayer].currentLocation.setSlotToFree (players[currentPlayer].slotNumber);
+						players[currentPlayer].currentLocation = locations[i];
 						yield return StartCoroutine (movePlayer (locations[i], .1f));
 					}
 				}
@@ -59,7 +70,7 @@ public class GameHandler : MonoBehaviour {
 		int firstSlot = l.getFirstFreeSlot ();
 		l.setSlotToUsed (firstSlot);
 		GameObject targetSlot = l.loc.transform.Find ("Slot 1").gameObject;
-		p.destinationReached = false;
+		players[currentPlayer].destinationReached = false;
 
 		switch (firstSlot) {
 		case 0:
@@ -78,23 +89,34 @@ public class GameHandler : MonoBehaviour {
 
 		Debug.Log ("Moving");
 
-		while (!p.destinationReached) {
-			Vector3 dest = targetSlot.transform.position - p.g.transform.localPosition;
-
-			Debug.Log ("target: " + targetSlot.transform.position.ToString () + ", current: " + p.g.transform.localPosition.ToString ());
+		while (!players[currentPlayer].destinationReached) {
+			Vector3 dest = targetSlot.transform.position - players[currentPlayer].g.transform.localPosition;
 			
 			dest = Vector3.Scale (dest, new Vector3 (1, 1, 0));
 
-			p.g.transform.localPosition += (percent * dest);
+			//players[currentPlayer].g.transform.localPosition += (percent * dest);
 
-			if (p.g.transform.localPosition.x <= (targetSlot.transform.position.x + .05f) && p.g.transform.localPosition.x >= (targetSlot.transform.position.x - .05f) && p.g.transform.localPosition.y <= (targetSlot.transform.position.y + .05f) && p.g.transform.localPosition.y >= (targetSlot.transform.position.y - .05f)) {
-				p.g.transform.localPosition.Set(targetSlot.transform.position.x, targetSlot.transform.position.y, -10f);
-				p.destinationReached = true;
+			players[currentPlayer].g.transform.position = Vector3.Lerp (players[currentPlayer].g.transform.position, new Vector3(targetSlot.transform.position.x,targetSlot.transform.position.y, -1.0f), .1f);
+
+			if (players[currentPlayer].g.transform.localPosition.x <= (targetSlot.transform.position.x + .05f) && players[currentPlayer].g.transform.localPosition.x >= (targetSlot.transform.position.x - .05f) && players[currentPlayer].g.transform.localPosition.y <= (targetSlot.transform.position.y + .05f) && players[currentPlayer].g.transform.localPosition.y >= (targetSlot.transform.position.y - .05f)) {
+				players[currentPlayer].g.transform.localPosition.Set(targetSlot.transform.position.x, targetSlot.transform.position.y, -10f);
+				players[currentPlayer].destinationReached = true;
 				canInteract = true;
-				Debug.Log ("Has stopped moving");
 			}
 			yield return null;
 		}
+
+		incrementCurrentPlayer ();
+	}
+
+	public void incrementCurrentPlayer() {
+		if (currentPlayer == 3) {
+			currentPlayer = 0;
+		} else {
+			currentPlayer++;
+		}
+
+
 	}
 	
 }

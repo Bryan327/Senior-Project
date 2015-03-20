@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Location : MonoBehaviour {
+public class Location {
 
 	public GameObject loc;
 	public bool[] slotIsFree;
