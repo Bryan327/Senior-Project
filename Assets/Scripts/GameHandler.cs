@@ -80,25 +80,9 @@ public class GameHandler : MonoBehaviour
 	{
 		int firstSlot = l.getFirstFreeSlot ();
 		l.setSlotToUsed (firstSlot);
-		GameObject targetSlot = l.loc.transform.Find ("Slot 1").gameObject;
 		this._players[this._currentPlayer].destinationReached = false;
 
-		switch (firstSlot) 
-		{
-			case 0:
-				targetSlot = l.loc.transform.Find ("Slot 1").gameObject;
-				break;
-			case 1:
-				targetSlot = l.loc.transform.Find ("Slot 2").gameObject;
-				break;
-			case 2:
-				targetSlot = l.loc.transform.Find ("Slot 3").gameObject;
-				break;
-			case 3:
-				targetSlot = l.loc.transform.Find ("Slot 4").gameObject;
-				break;
-		}
-
+		GameObject targetSlot = l.loc.transform.Find ("Slot " + (firstSlot + 1).ToString()).gameObject;
 		Debug.Log ("Moving");
 
 		Vector3 dest;
@@ -118,7 +102,7 @@ public class GameHandler : MonoBehaviour
 			}
 			yield return null;
 		}
-		incrementCurrentPlayer();
+		this.incrementCurrentPlayer();
 	}
 
 	public void incrementCurrentPlayer() 
@@ -127,5 +111,5 @@ public class GameHandler : MonoBehaviour
 			this._currentPlayer = 0;
 		else
 			this._currentPlayer++;
-	}	
+	}
 }
