@@ -1,45 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player {
+public class Player 
+{
+	private CircleCollider2D _col;
+	private SpriteRenderer _rend;
 
-	public string name;
 	public GameObject g;
-	public CircleCollider2D col;
-	public SpriteRenderer rend;
 	public bool destinationReached;
 	public Location currentLocation;
 	public int slotNumber;
 
-	public Player(GameObject start, Location loc, int playerNumber) {
+	public Player(GameObject start, Location loc, int playerNumber) 
+	{
 		g = new GameObject ("Player");
-		col = g.AddComponent<CircleCollider2D> ();
-		rend = g.AddComponent<SpriteRenderer> ();
+		this._col = g.AddComponent<CircleCollider2D> ();
+		this._rend = g.AddComponent<SpriteRenderer> ();
 
-		switch (playerNumber) {
-		case 1: 
-			g.GetComponent<SpriteRenderer>().sprite = Resources.Load ("Player1Sprite", typeof(Sprite)) as Sprite;
-			g.transform.localPosition = start.transform.Find ("Slot 1").gameObject.transform.localPosition + new Vector3(0, 0, -1);
-			slotNumber = 0;
-			break;
-		case 2:
-			g.GetComponent<SpriteRenderer>().sprite = Resources.Load ("Player2Sprite", typeof(Sprite)) as Sprite;
-			g.transform.localPosition = start.transform.Find ("Slot 2").gameObject.transform.localPosition + new Vector3(0, 0, -1);
-			slotNumber = 1;
-			break;
-		case 3:
-			g.GetComponent<SpriteRenderer>().sprite = Resources.Load ("Player3Sprite", typeof(Sprite)) as Sprite;
-			g.transform.localPosition = start.transform.Find ("Slot 3").gameObject.transform.localPosition + new Vector3(0, 0, -1);
-			slotNumber = 2;
-			break;
-		case 4:
-			g.GetComponent<SpriteRenderer>().sprite = Resources.Load ("Player4Sprite", typeof(Sprite)) as Sprite;
-			g.transform.localPosition = start.transform.Find ("Slot 4").gameObject.transform.localPosition + new Vector3(0, 0, -1);
-			slotNumber = 3;
-			break;
-		}
+		this.GetPosition(start, playerNumber);
 
-		g.GetComponent<CircleCollider2D> ().radius = g.GetComponent<SpriteRenderer> ().bounds.size.x / 2;
+		g.GetComponent<CircleCollider2D>().radius = g.GetComponent<SpriteRenderer> ().bounds.size.x / 2;
 
 		destinationReached = true;
 		currentLocation = loc;
@@ -48,14 +28,15 @@ public class Player {
 	}
 
 	// Use this for initialization
-	void Start () {
-	
-	}
+	void Start() {}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update() {}
 
+	private void GetPosition(GameObject start,int playerNumber) 
+	{ //not exactly sure what this should be called
+		g.GetComponent<SpriteRenderer>().sprite = Resources.Load ("Player" + playerNumber + "Sprite", typeof(Sprite)) as Sprite;
+		g.transform.localPosition = start.transform.Find ("Slot " + playerNumber.ToString()).gameObject.transform.localPosition + new Vector3(0, 0, -1);
+		slotNumber = playerNumber - 1;
 	}
-
-
 }
