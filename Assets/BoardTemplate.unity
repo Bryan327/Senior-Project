@@ -344,9 +344,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ee60b2d0f0c8649a76f765d102ceaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetX: 0
-  cameraX: 0
-  cameraIsMoving: 0
 --- !u!4 &1769447846
 Transform:
   m_ObjectHideFlags: 0
@@ -370,6 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13fd0668a2ac6c0498d9ffd544fcaaba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gui: {fileID: 1677588642}
   locationPrefabs:
   - {fileID: 102542, guid: c86c06a1f4c577048b3d3ab721f512f2, type: 2}
   - {fileID: 190954, guid: ab6caadbbde13b141b8cb0dcef9b1878, type: 2}
@@ -377,7 +375,6 @@ MonoBehaviour:
   - {fileID: 117036, guid: 547678e8927779f4b8a9b5d6d225b32c, type: 2}
   - {fileID: 156426, guid: 94d79d2d4b6f60346bb544204993ed45, type: 2}
   - {fileID: 174160, guid: 65d662a12d59a454590a27c69aef54e2, type: 2}
-  gui: {fileID: 1677588642}
 --- !u!1 &1955381718
 GameObject:
   m_ObjectHideFlags: 0

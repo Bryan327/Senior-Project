@@ -9,7 +9,7 @@ public class GameHandler : MonoBehaviour
 	//private int _numberOfPlayers; what is this even used for?
 	private int _currentPlayer;//needs renaming
 	private Player[] _players;
-	private Canvas _gui;
+	public Canvas _gui;
 	private Location[] _locations;
 
 	public GameObject[] locationPrefabs;
